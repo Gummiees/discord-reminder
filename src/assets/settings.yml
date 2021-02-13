@@ -1,0 +1,4 @@
+settings:
+  prefix: '.'
+  nameBot: 'Discord reminder'
+  activity: '> use .remind'
