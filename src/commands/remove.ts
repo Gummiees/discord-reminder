@@ -1,3 +1,4 @@
+
 import { Client, Message, RichEmbed, RichEmbedOptions } from 'discord.js';
 import { Command } from './command';
 

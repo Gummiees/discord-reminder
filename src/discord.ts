@@ -1,8 +1,8 @@
 
 import { Message } from 'discord.js';
+import { MyClient } from './client/client';
 import { Command } from './commands/command';
 import { Config } from './config/config';
-import { MyClient } from './MyClient/myClient';
 
 export class DiscordBot {
 	private client: MyClient;
