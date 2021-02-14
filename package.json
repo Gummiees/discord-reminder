@@ -1,34 +1,37 @@
 {
-  "name": "discord-reminder",
-  "version": "0.0.1",
-  "description": "A discord bot to remind things at certain point in time in the future.",
-  "main": "index.js",
-  "scripts": {
-    "lint": "tslint --project . --fix"
-  },
-  "devDependencies": {
-    "@types/debug": "0.0.30",
-    "@types/node": "^9.6.5",
-    "@types/yamljs": "^0.2.30",
-    "nodemon": "^1.17.3",
-    "tslint": "^5.9.1",
-    "tslint-eslint-rules": "^5.1.0",
-    "typescript": "^2.8.1"
-  },
-  "dependencies": {
-    "discord.js": "^11.3.2",
-    "moment": "^2.29.1",
-    "yamljs": "^0.3.0"
-  },
-  "keywords": [
-    "discord bot",
-    "discord"
-  ],
-  "author": "likefurnis",
-  "license": "GPL-3.0",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/likefurnis/discord-reminder.git"
-  },
-  "homepage": "https://github.com/likefurnis/discord-reminder#readme"
+    "name": "discord-reminder",
+    "version": "0.0.1",
+    "description": "A discord bot to remind things at certain point in time in the future.",
+    "main": "index.js",
+    "scripts": {
+        "clean": "rimraf dist/",
+        "lint": "tslint --project . --fix",
+        "start": "npm run clean && tsc && node dist/index.js",
+        "git-push": "npm run clean && npm run lint && tsc && git add . && git commit -m 'autocommit' && git push"
+    },
+    "devDependencies": {
+        "@types/debug": "0.0.30",
+        "@types/node": "^9.6.5",
+        "@types/yamljs": "^0.2.30",
+        "nodemon": "^1.17.3",
+        "rimraf": "^3.0.2",
+        "tslint": "^5.9.1",
+        "tslint-eslint-rules": "^5.1.0",
+        "typescript": "^4.1.5"
+    },
+    "dependencies": {
+        "discord.js": "^11.3.2",
+        "moment": "^2.29.1"
+    },
+    "keywords": [
+        "discord bot",
+        "discord"
+    ],
+    "author": "likefurnis",
+    "license": "GPL-3.0",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/likefurnis/discord-reminder.git"
+    },
+    "homepage": "https://github.com/likefurnis/discord-reminder#readme"
 }

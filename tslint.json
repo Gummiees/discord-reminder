@@ -1,9 +1,8 @@
 {
     "defaultSeverity": "error",
-    "extends": [
-        "tslint:recommended"
-    ],
+    "extends": ["tslint:recommended"],
     "rules": {
+        "curly": [true, "ignore-same-line"],
         "trailing-comma": [false],
         "object-literal-sort-keys": false,
         "arrow-return-shorthand": true,
@@ -15,7 +14,7 @@
         },
         "import-blacklist": [true, "rxjs/Rx"],
         "import-spacing": true,
-        "indent": [true, "tabs", 2],
+        "indent": [true, "spaces", 2],
         "max-line-length": [true, 150],
         "no-debugger": true,
         "no-duplicate-super": true,
@@ -35,5 +34,3 @@
         "radix": true
     }
 }
-
-

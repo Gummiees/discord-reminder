@@ -1,17 +1,13 @@
 import { Client, Message, RichEmbed, RichEmbedOptions } from 'discord.js';
 import { Command } from './command';
 
-export class List extends Command {
+export class Help extends Command {
     public async execute(client: Client, message: Message, args: string[]): Promise<Message> {
-        // TODO: List all reminders
+        // TODO: Display proper help.
         const options: RichEmbedOptions = {
-            title: 'Reminders list',
-            author: {
-                name: message.author.username,
-                icon_url: message.author.displayAvatarURL,
-            },
+            title: 'Help',
             color: 3447003,
-            description: 'Here all the reminders that the user has will be displayed',
+            description: 'Here you will see the commands descriptions.',
         };
         const embed: RichEmbed = new RichEmbed(options);
         return message.channel.send(embed);

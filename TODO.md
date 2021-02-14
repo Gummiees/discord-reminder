@@ -12,3 +12,4 @@
 8. Respond to original message when reminding (MessageMentions / Message.reply).
 9.  Read reminders from saved json.
 10. List command.
+11. Help command.
