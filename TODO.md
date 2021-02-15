@@ -14,3 +14,5 @@
 10. List command.
 11. Help command.
 12. [Use Browserify](https://www.typescriptlang.org/docs/handbook/gulp.html#browserify)
+13. Create branch `dev` to test code on it.
+14. Upload to Heroku and sync with branch `main`.
