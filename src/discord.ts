@@ -2,14 +2,17 @@ import { Message } from 'discord.js';
 import { MyClient } from './client/client';
 import { Command } from './commands/command';
 import { Config } from './config/config';
+import { ReminderFile } from './reminder/reminderFile';
 
 export class DiscordBot {
     private client: MyClient;
     private config: Config;
+    private reminderFile: ReminderFile;
 
     constructor() {
         this.client = new MyClient();
         this.config = new Config();
+        this.reminderFile = new ReminderFile();
     }
 
     public start(): void {
@@ -34,7 +37,7 @@ export class DiscordBot {
         const command: Command | undefined = discordBot.client.getCommand(commandName);
         if (!command) return discordBot.commandNotFound(message, commandName);
 
-        command.execute(discordBot.client, message, args);
+        command.execute(discordBot.client, message, discordBot.reminderFile, args);
     }
 
     private onExit(discordBot: DiscordBot): void {

@@ -1,18 +1,15 @@
 # TODO
 1. Set to send messages on `#bot-spam` channel if exists. If not, use default channel.
 2. Create command where you can set the desired channel to use.
-3. Set bot presence.
-4. `remind` command.
-   1. One of the args must be a name (like an id).
-   2. It will have to write on a json, so if the discord is suddenly stopped or put to sleep, it can read it when turned back on.
-5. `.remove` command.
-7. Read message reactions. (`Message.awaitReactions`)
+3. Create message to remind at the desired moment.
+4. Read message reactions. (`Message.awaitReactions`)
    1. Force users to only be able to react with two emojis (`Message.react`).
    2. Make sure that the reaction that matters is the one from the original message.
-8. Respond to original message when reminding (`MessageMentions` / `Message.reply`).
-9.  Read reminders from saved json.
-10. `.list` command.
-11. `.help` command.
-12. [Use Browserify](https://www.typescriptlang.org/docs/handbook/gulp.html#browserify)
-13. Create branch `dev` to test code on it.
-14. Upload to Heroku and sync with branch `main`.
+5.  Read reminders from saved json.
+6.  `.help` command.
+7.  [Use Browserify](https://www.typescriptlang.org/docs/handbook/gulp.html#browserify)
+8.  Create branch `dev` to test code on it.
+9.  Upload to Heroku and sync with branch `main`.
+10. CACHE
+    1.  Every new day, the bot must caché the reminders from the JSON that it has to remind for the current day. The ones for other days, are omited.
+    2.  Read the cache when checking if there is any reminder for this minute.

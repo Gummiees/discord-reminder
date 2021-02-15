@@ -1,4 +1,5 @@
 import { Client, Message } from 'discord.js';
+import { ReminderFile } from '../reminder/reminderFile';
 
 export abstract class Command {
     private NAME: string;
@@ -11,5 +12,5 @@ export abstract class Command {
         return this.NAME;
     }
 
-    public abstract execute(client: Client, message: Message, args?: string[]): Promise<Message>;
+    public abstract execute(client: Client, message: Message, reminderFile: ReminderFile, args?: string[]): Promise<Message>;
 }
