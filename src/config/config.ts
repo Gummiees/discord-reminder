@@ -1,5 +1,3 @@
-import * as config from '../assets/config.json';
-
 export class Config {
     private PREFIX: string;
     private NAMEBOT: string;
@@ -10,7 +8,7 @@ export class Config {
         this.PREFIX = '.';
         this.NAMEBOT = 'Reminder';
         this.ACTIVITY = '> use .remind';
-        this.TOKEN = config.token;
+        this.TOKEN = process.env.TOKEN;
     }
 
     public get prefix(): string {
