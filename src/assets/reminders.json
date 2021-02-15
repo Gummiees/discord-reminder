@@ -1,7 +1,8 @@
 [
-    {
-        "userId": "123123",
-        "description": "Reminder description",
-        "timestamp": 123123123
-    }
+    { "userId": "<@131749453248856064>", "description": "test", "timestamp": 1638309240000 },
+    { "userId": "<@131749453248856064>", "description": "test", "timestamp": 1638309240000 },
+    { "userId": "<@131749453248856064>", "description": "test", "timestamp": 1638309240000 },
+    { "userId": "<@131749453248856064>", "description": "test2", "timestamp": 1638309240000 },
+    { "userId": "<@131749453248856064>", "description": "test3", "timestamp": 1638309240000 },
+    { "userId": "<@131749453248856064>", "description": "cumple", "timestamp": 1647039600000 }
 ]

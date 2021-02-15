@@ -1,7 +1,9 @@
 import { Message, RichEmbed, RichEmbedOptions } from 'discord.js';
 import moment from 'moment';
 
-export const DATE_FORMAT: string = 'hh:mm DD/MM/YYYY';
+export const DATE_FORMAT: string = 'YYYYMMDDHHmm';
+export const DATE_DISPLAY_FORMAT: string = 'HH:mm DD/MM/YYYY';
+export const DATE_FORMAT_REFEX: RegExp = /\d\d\d\d/g;
 
 export function showEmbedError(message: Message, description: string): Promise<Message> {
     const options: RichEmbedOptions = {
@@ -22,4 +24,8 @@ export function isDateType(value: any): boolean {
 export function isDateFormatCorrect(stringDate: string): boolean {
     const date: any = moment(stringDate, DATE_FORMAT);
     return isDateType(date);
+}
+
+export function isTimeFuture(timestamp: number) {
+    return new Date() < new Date(timestamp);
 }

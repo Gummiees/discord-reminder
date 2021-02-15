@@ -2,18 +2,20 @@ import { Client, Message, RichEmbed, RichEmbedOptions } from 'discord.js';
 import moment from 'moment';
 import { IReminderFile } from '../reminder/interfaces';
 import { ReminderFile } from '../reminder/reminderFile';
-import { DATE_FORMAT, isDateFormatCorrect, showEmbedError } from '../utils/utils';
+import { DATE_FORMAT, isDateFormatCorrect, isTimeFuture, showEmbedError } from '../utils/utils';
 import { Command } from './command';
 
 export class Remind extends Command {
     public async execute(client: Client, message: Message, reminderFile: ReminderFile, args: string[]): Promise<Message> {
         if (!args || args.length !== 2) return showEmbedError(message, 'You need to specify the description and timestamp.');
-        if (!isDateFormatCorrect(args[1])) return showEmbedError(message, `The timestamp format is not correct. It must be ${DATE_FORMAT} `);
+        if (!isDateFormatCorrect(args[1])) return showEmbedError(message, `The timestamp format is not correct. It must be ${DATE_FORMAT}.`);
+        const timestamp: number = +moment(args[1], DATE_FORMAT).toDate();
+        if (!isTimeFuture(timestamp)) return showEmbedError(message, `The reminder must be set on a point in the future.`);
 
         const reminder: IReminderFile = {
             userId: message.author.toString(),
             description: args[0],
-            timestamp: moment(args[1], DATE_FORMAT).unix(),
+            timestamp,
         };
 
         reminderFile.writeReminder(reminder);

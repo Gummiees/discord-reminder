@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 import moment from 'moment';
-import { DATE_FORMAT } from '../utils/utils';
+import * as path from 'path';
+import { DATE_DISPLAY_FORMAT } from '../utils/utils';
 import { IReminderEmbed, IReminderFile } from './interfaces';
 
 export class ReminderFile {
@@ -8,7 +9,7 @@ export class ReminderFile {
     private FILE_DIR: string;
 
     constructor() {
-        this.FILE_DIR = `../assets/reminders.json`;
+        this.FILE_DIR = path.resolve(__dirname, '../assets/reminders.json');
         this.updateCache();
     }
 
@@ -35,7 +36,7 @@ export class ReminderFile {
         const reminders: IReminderFile[] = this.listUserReminders(userId);
         const remindersEmbed: IReminderEmbed[] = [];
         reminders.forEach((reminder) => {
-            const stringDate: string = moment(reminder.timestamp).format(DATE_FORMAT);
+            const stringDate: string = moment(reminder.timestamp).format(DATE_DISPLAY_FORMAT);
             remindersEmbed.push({ name: reminder.description, value: `Reminder for ${stringDate}` });
         });
         return remindersEmbed;
@@ -76,30 +77,13 @@ export class ReminderFile {
         }
     }
 
-    private findReminder(reminders: IReminderFile[], userId: string, description: string): IReminderFile {
-        if (!reminders) return;
-        return reminders.find((reminder) => reminder.userId === userId && reminder.description === description);
-    }
-
-    private findCachedReminder(userId: string, description: string): IReminderFile {
-        return this.findReminder(this.CACHE_REMINDERS, userId, description);
-    }
-
     private removeReminderCache(userId: string, description: string): void {
-        const reminder: IReminderFile = this.findCachedReminder(userId, description);
-        if (reminder) {
-            const index: number = this.CACHE_REMINDERS.indexOf(reminder);
-            this.CACHE_REMINDERS = this.CACHE_REMINDERS.splice(index, 1);
-        }
+        this.CACHE_REMINDERS = this.CACHE_REMINDERS.filter((reminder) => reminder.userId !== userId || reminder.description !== description);
     }
 
     private removeReminderFile(userId: string, description: string): void {
         let reminders: IReminderFile[] = this.readAllReminders();
-        const reminder: IReminderFile = this.findReminder(reminders, userId, description);
-        if (reminder) {
-            const index: number = reminders.indexOf(reminder);
-            reminders = reminders.splice(index, 1);
-            this.writeReminders(reminders);
-        }
+        reminders = reminders.filter((reminder) => reminder.userId !== userId || reminder.description !== description);
+        this.writeReminders(reminders);
     }
 }
