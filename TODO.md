@@ -6,10 +6,10 @@
    1. One of the args must be a name (like an id).
    2. It will have to write on a json, so if the discord is suddenly stopped or put to sleep, it can read it when turned back on.
 5. `.remove` command.
-7. Read message reactions. (Message.awaitReactions)
-   1. Force users to only be able to react with two emojis (Message.react).
+7. Read message reactions. (`Message.awaitReactions`)
+   1. Force users to only be able to react with two emojis (`Message.react`).
    2. Make sure that the reaction that matters is the one from the original message.
-8. Respond to original message when reminding (MessageMentions / Message.reply).
+8. Respond to original message when reminding (`MessageMentions` / `Message.reply`).
 9.  Read reminders from saved json.
 10. `.list` command.
 11. `.help` command.
