@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync } from 'fs';
 import moment from 'moment';
+import schedule from 'node-schedule';
 import * as path from 'path';
 import { DATE_DISPLAY_FORMAT } from '../utils/utils';
 import { IReminderEmbed, IReminderFile } from './interfaces';
@@ -11,6 +12,7 @@ export class ReminderFile {
     constructor() {
         this.FILE_DIR = path.resolve(__dirname, '../assets/reminders.json');
         this.updateCache();
+        this.scheduleJobs();
     }
 
     get CachedReminders(): IReminderFile[] {
@@ -40,6 +42,10 @@ export class ReminderFile {
             remindersEmbed.push({ name: reminder.description, value: `Reminder for ${stringDate}` });
         });
         return remindersEmbed;
+    }
+
+    private scheduleJobs() {
+        schedule.scheduleJob('27 * * * *', () => this.updateCache());
     }
 
     private listUserReminders(userId: string): IReminderFile[] {

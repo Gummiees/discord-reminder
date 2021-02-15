@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import { Channel, Message } from 'discord.js';
 import { MyClient } from './client/client';
 import { Command } from './commands/command';
 import { Config } from './config/config';
@@ -16,32 +16,30 @@ export class DiscordBot {
     }
 
     public start(): void {
-        this.client.on('ready', () => this.onReady(this));
-        this.client.on('message', (message: Message) => this.onMessage(this, message));
-        process.on('exit', () => this.onExit(this));
-        // process.on('uncaughtException', (error: Error) => this.onException(error));
-        // this.client.login(process.env.token);
+        this.client.on('ready', () => this.onReady());
+        this.client.on('message', (message: Message) => this.onMessage(message));
+        process.on('exit', () => this.onExit());
         this.client.login(this.config.token);
     }
 
-    private onReady(discordBot: DiscordBot): void {
-        discordBot.client.user.setActivity(discordBot.config.activity);
+    private onReady(): void {
+        this.client.user.setActivity(this.config.activity);
     }
 
-    private onMessage(discordBot: DiscordBot, message: Message): void {
+    private onMessage(message: Message): void {
         if (message.author.bot) return;
-        if (message.content.indexOf(discordBot.config.prefix) !== 0) return;
+        if (message.content.indexOf(this.config.prefix) !== 0) return;
 
-        const args: string[] = message.content.slice(discordBot.config.prefix.length).trim().split(/ +/g);
+        const args: string[] = message.content.slice(this.config.prefix.length).trim().split(/ +/g);
         const commandName: string = args.shift().toLowerCase();
-        const command: Command | undefined = discordBot.client.getCommand(commandName);
-        if (!command) return discordBot.commandNotFound(message, commandName);
+        const command: Command | undefined = this.client.getCommand(commandName);
+        if (!command) return this.commandNotFound(message, commandName);
 
-        command.execute(discordBot.client, message, discordBot.reminderFile, args);
+        command.execute(this.client, message, this.reminderFile, args);
     }
 
-    private onExit(discordBot: DiscordBot): void {
-        discordBot.client.destroy();
+    private onExit(): void {
+        this.client.destroy();
     }
 
     private commandNotFound(message: Message, commandName: string): void {

@@ -1,11 +1,14 @@
 import { Client, ClientOptions } from 'discord.js';
-import { Command, Help, List, Remind, Remove } from '../commands/commands.barrel';
+import { Command, Help, List, Remind, Remove, SetChannel } from '../commands/commands.barrel';
+import { MyChannel } from '../reminder/channel';
 
 export class MyClient extends Client {
     private COMMANDS: Command[];
+    private CHANNEL: MyChannel;
 
     constructor(options?: ClientOptions) {
         super(options);
+        this.CHANNEL = new MyChannel();
         this.COMMANDS = this.createCommands();
     }
 
@@ -17,6 +20,10 @@ export class MyClient extends Client {
         this.COMMANDS = cmds;
     }
 
+    public get channel(): MyChannel {
+        return this.CHANNEL;
+    }
+
     public getCommand(name: string): Command | undefined {
         return this.COMMANDS.find((cmd: Command) => cmd.name === name);
     }
@@ -26,6 +33,7 @@ export class MyClient extends Client {
         const remove: Command = new Remove('remove');
         const list: Command = new List('list');
         const help: Command = new Help('help');
-        return [remind, remove, list, help];
+        const set: Command = new SetChannel('set');
+        return [remind, remove, list, help, set];
     }
 }
