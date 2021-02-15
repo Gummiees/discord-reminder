@@ -13,3 +13,4 @@
 9.  Read reminders from saved json.
 10. List command.
 11. Help command.
+12. [Use Browserify](https://www.typescriptlang.org/docs/handbook/gulp.html#browserify)
