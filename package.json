@@ -6,10 +6,10 @@
     "scripts": {
         "clean": "rimraf dist/",
         "copy-files": "copyfiles src/assets/* dist",
-        "lint": "tslint --project . --fix",
+        "ci": "tslint --project . --fix",
         "start": "npm run clean && tsc && npm run copy-files && node dist/index.js",
-        "build": "npm run lint && npm run start",
-        "git-push": "npm run clean && npm run lint && tsc && git add . && git commit -m 'autocommit' && git push"
+        "build": "npm run ci && npm run start",
+        "git-push": "npm run clean && npm run ci && tsc && git add . && git commit -m 'autocommit' && git push"
     },
     "devDependencies": {
         "@types/debug": "0.0.30",
