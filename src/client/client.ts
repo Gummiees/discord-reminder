@@ -23,8 +23,9 @@ export class MyClient extends Client {
         this.COMMANDS = cmds;
     }
 
+    /** Overrides the original destroy method. It firstly removes all the scheduled jobs and then calls the original destroy method. */
     public destroy(): Promise<void> {
-        this.reminderDB.removeAllChronos();
+        this.reminderDB.removeAllJobs();
         return super.destroy();
     }
 
@@ -32,6 +33,7 @@ export class MyClient extends Client {
         return this.COMMANDS.find((cmd: Command) => cmd.name === name);
     }
 
+    /** Creates the commands and the names associated to it. */
     private createCommands(): Command[] {
         const remind: Remind = new Remind('remind');
         const remove: Remove = new Remove('remove');
@@ -40,10 +42,12 @@ export class MyClient extends Client {
         return [remind, remove, list, help];
     }
 
+    /** Listens to the reminders being emitted by the scheduled jobs. */
     private listenToReminderEmitter() {
         this.reminderDB.reminderEvent.on('reminder', (reminder: IReminder) => this.handleReminderEvent(reminder));
     }
 
+    /** Calls the reminder command, sending the reminder emitted. */
     private handleReminderEvent(reminder: IReminder) {
         const reminderCommand: Reminder = new Reminder('reminder');
         reminderCommand.execute(this, null, null, reminder);
