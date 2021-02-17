@@ -9,14 +9,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.1.4
+      - name: "Checkout GIT"
+        uses: actions/checkout@v2
+      - name: "Set up node"
+        uses: actions/setup-node@v2.1.4
         with:
           node-version: '14'
-      - name: "Setting up node"
       - run: npm i
       - run: npm run build
-      - uses: akhileshns/heroku-deploy@v3.11.10
+      - name: "Deploy to Heroku"
+        uses: akhileshns/heroku-deploy@v3.11.10
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "discord-reminder-bot-eu"
@@ -27,4 +29,3 @@ jobs:
           # procfile: "worker: node dist/index.js"
         # env:
           # TOKEN: ${{secrets.FIREBASE_API_KEY}}
-      - name: "Deploy to Heroku"
