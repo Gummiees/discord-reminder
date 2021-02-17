@@ -1,19 +1,16 @@
 import { Client, ClientOptions } from 'discord.js';
 import { Command, Help, List, Remind, Remove } from '../commands/commands.barrel';
 import { Reminder } from '../commands/reminder';
-import { GuildDB } from '../guild/guildDB';
 import { IReminder } from '../reminder/reminder.interfaces';
 import { ReminderDB } from '../reminder/reminderDB';
 
 export class MyClient extends Client {
     public reminderDB: ReminderDB;
-    public guildDB: GuildDB;
     private COMMANDS: Command[];
 
     constructor(options?: ClientOptions) {
         super(options);
         this.reminderDB = new ReminderDB();
-        this.guildDB = new GuildDB();
         this.COMMANDS = this.createCommands();
         this.listenToReminderEmitter();
     }

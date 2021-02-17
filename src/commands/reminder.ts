@@ -1,4 +1,4 @@
-import { Guild, GuildChannel, GuildMember, Message, RichEmbed, RichEmbedOptions, User } from 'discord.js';
+import { Guild, GuildMember, Message, RichEmbed, RichEmbedOptions, User } from 'discord.js';
 import { MyClient } from '../client/client';
 import { IReminder } from '../reminder/reminder.interfaces';
 import { showEmbedError } from '../utils/utils';
@@ -6,7 +6,6 @@ import { Command } from './command';
 
 export class Reminder extends Command {
     public async execute(client: MyClient, message: Message, args?: string[], reminder?: IReminder): Promise<Message> {
-        if (!client.guildDB.id) return;
         const guild: Guild = client.guilds.get(reminder.guildId);
         if (!guild) return;
         const channel: any = guild.channels.get(reminder.channelId);

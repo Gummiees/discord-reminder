@@ -32,8 +32,6 @@ export class DiscordBot {
         const commandName: string = args.shift().toLowerCase();
         const command: Command | undefined = this.client.getCommand(commandName);
         if (!command) return this.commandNotFound(message, commandName);
-        if (!this.client.guildDB.id) this.client.guildDB.id = message.guild.id;
-
         command.execute(this.client, message, args);
     }
 

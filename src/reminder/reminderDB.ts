@@ -134,7 +134,10 @@ export class ReminderDB {
 
     private setCurrentId() {
         const reminders: IReminder[] = this.readAllReminders();
-        this.CURRENT_ID = Math.max(...reminders.map((rem) => rem.id));
+        const ids: number[] = reminders.map((rem) => rem.id);
+        if (ids && ids.length > 0) {
+            this.CURRENT_ID = Math.max(...ids);
+        }
         if (!this.CURRENT_ID) {
             this.CURRENT_ID = 1;
         }

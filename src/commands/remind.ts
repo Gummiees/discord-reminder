@@ -7,9 +7,11 @@ import { Command } from './command';
 
 export class Remind extends Command {
     public async execute(client: MyClient, message: Message, args: string[]): Promise<Message> {
-        if (!args || args.length !== 2) return showEmbedError(message, 'You need to specify the description and timestamp.');
-        if (!isDateFormatCorrect(args[1])) return showEmbedError(message, `The timestamp format is not correct. It must be ${DATE_FORMAT}.`);
-        const timestamp: number = +moment(args[1], DATE_FORMAT).toDate();
+        if (!args || args.length < 2) return showEmbedError(message, 'You need to specify the timestamp and description.');
+        if (!isDateFormatCorrect(args[0])) return showEmbedError(message, `The timestamp format is not correct. It must be ${DATE_FORMAT}.`);
+        let date: string;
+        [date, ...args] = args;
+        const timestamp: number = +moment(date, DATE_FORMAT).toDate();
         if (!isTimeFuture(timestamp)) return showEmbedError(message, `The reminder must be set on a point in the future.`);
 
         const reminder: IReminder = {
@@ -17,7 +19,7 @@ export class Remind extends Command {
             guildId: message.guild.id,
             guildMemberId: message.guild.member(message.author.id)?.id,
             userId: message.author.toString(),
-            description: args[0],
+            description: args.join(' '),
             timestamp,
             id: client.reminderDB.id
         };
