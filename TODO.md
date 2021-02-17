@@ -1,5 +1,4 @@
 # TODO
-1.  Remove GuildDB + guild.json if possible
 2.  Invert parameters for reminder, so the description can be as long as the user wants.
 3.  Remove the reminder from file, cache and chrono once it has been sent.
 4.  Add default reactions for delaying 5m, 10m, 30m, 1h, 1d, 1w, 1M, 1y
