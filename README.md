@@ -13,6 +13,7 @@ My first discord bot made with TypeScript! Also using lint properly (I think).
 - Check if has to send reminder message ✔️
 - Send reminder message ✔️
 - Tag reminder creator ✔️
+- Remove GuildDB + guild.json if possible
 - Remove the reminder from file, cache and chrono once it has been sent.
 - Add default reactions for delaying 5m, 10m, 30m, 1h, 1d, 1w, 1M, 1y
 - Make it so no more reactions can be added.
