@@ -9,9 +9,10 @@ My first discord bot made with TypeScript! Also using lint properly (I think).
 - `.list` ✔️
 - `.remove` ✔️
 - `.help`
-- Set daily reminders on cache and schedule when hour changes ✔️
+- Set hourly reminders on cache and schedule the current ones when hour changes ✔️
 - Check if has to send reminder message ✔️
 - Send reminder message ✔️
+- Tag reminder creator ✔️
 - Remove the reminder from file, cache and chrono once it has been sent.
 - Add default reactions for delaying 5m, 10m, 30m, 1h, 1d, 1w, 1M, 1y
 - Make it so no more reactions can be added.
