@@ -10,9 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v2.1.4
         with:
           node-version: '14'
+      - name: "Setting up node"
       - run: npm i
       - run: npm run build
       - uses: akhileshns/heroku-deploy@v3.11.10
@@ -21,8 +22,9 @@ jobs:
           heroku_app_name: "discord-reminder-bot-eu"
           heroku_email: "xavicaromiro@gmail.com"
           appdir: "dist"
-          healthcheck: "https://discord-reminder-bot-eu.herokuapp.com/health"
-          rollbackonhealthcheckfailed: true
-          procfile: "worker: node dist/index.js"
-        env:
-          TOKEN: ${{secrets.FIREBASE_API_KEY}}
+          # healthcheck: "https://discord-reminder-bot-eu.herokuapp.com/health"
+          # rollbackonhealthcheckfailed: true
+          # procfile: "worker: node dist/index.js"
+        # env:
+          # TOKEN: ${{secrets.FIREBASE_API_KEY}}
+      - name: "Deploy to Heroku"
