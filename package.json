@@ -8,7 +8,7 @@
         "copy-files": "copyfiles src/assets/* dist",
         "ci": "tslint --project . --fix",
         "start": "npm run clean && tsc && npm run copy-files && node dist/index.js",
-        "build": "npm run ci && npm run start",
+        "build": "npm run ci && npm run clean && tsc && npm run copy-files",
         "git-push": "npm run clean && npm run ci && tsc && git add . && git commit -m 'autocommit' && git push"
     },
     "devDependencies": {
