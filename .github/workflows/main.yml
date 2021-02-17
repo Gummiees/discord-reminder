@@ -16,15 +16,12 @@ jobs:
           node-version: '14'
       - run: npm i
       - run: npm run build
-      - run: git config user.email "discord-reminder@github.com"
-      - run: git config user.name "discord-reminder"
-      - run: git add -A && git commit -m "Updated code"
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.11.10
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "discord-reminder-bot-eu"
           heroku_email: ${{secrets.HEROKU_EMAIL}}
+          heroku_app_name: "discord-reminder-bot-eu"
           appdir: dist
           docker_heroku_process_type: worker
           # healthcheck: "https://discord-reminder-bot-eu.herokuapp.com/health"
