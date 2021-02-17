@@ -9,21 +9,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout GIT"
-        uses: actions/checkout@v2
-      - name: "Set up node"
+      - uses: actions/checkout@v2
+      - name: Set up node
         uses: actions/setup-node@v2.1.4
         with:
           node-version: '14'
       - run: npm i
       - run: npm run build
-      - name: "Deploy to Heroku"
+      - run: git config user.email "discord-reminder@github.com"
+      - run: git config user.name "discord-reminder"
+      - run: git add -A && git commit -m "Updated code"
+      - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.11.10
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "discord-reminder-bot-eu"
-          heroku_email: "xavicaromiro@gmail.com"
-          appdir: "dist"
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          buildpack: heroku/nodejs
+          appdir: dist
           # healthcheck: "https://discord-reminder-bot-eu.herokuapp.com/health"
           # rollbackonhealthcheckfailed: true
           # procfile: "worker: node dist/index.js"
