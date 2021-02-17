@@ -15,7 +15,7 @@ jobs:
       - name: Unshallow
         run: git fetch --all --unshallow
       - name: Deploy to Heroku
-        run: git push heroku-remote HEAD:main -f
+        run: git push heroku-remote HEAD:master -f
       - uses: actions/setup-node@v2.1.4
         with:
           node-version: '14'
