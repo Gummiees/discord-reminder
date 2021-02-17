@@ -12,6 +12,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Add remote origin
         run: git remote add heroku-remote https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
+      - name: Unshallow
+        run: git fetch --all --unshallow
       - name: Deploy to Heroku
         run: git push heroku-remote HEAD:main -f
       - uses: actions/setup-node@v2.1.4
