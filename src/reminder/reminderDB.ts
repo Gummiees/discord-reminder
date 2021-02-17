@@ -153,10 +153,10 @@ export class ReminderDB {
         this.reminderEvent.emit('reminder', reminder);
     }
 
-    /** 
+    /**
      * Initalizes the ID.
      * If there were reminders on the JSON file, it will use the next after the higher ID found.
-     * If it does not find an ID on the JSON file, it will use '1' as the first ID. 
+     * If it does not find an ID on the JSON file, it will use '1' as the first ID.
      */
     private setCurrentId() {
         const reminders: IReminder[] = this.readAllReminders();

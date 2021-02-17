@@ -24,7 +24,7 @@ export class Remind extends Command {
             id: client.reminderDB.id
         };
 
-        client.reminderDB.writeReminder(reminder);
+        client.reminderDB.addReminder(reminder);
 
         const options: RichEmbedOptions = {
             title: 'New reminder created',
