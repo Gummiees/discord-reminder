@@ -25,8 +25,8 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "discord-reminder-bot-eu"
           heroku_email: ${{secrets.HEROKU_EMAIL}}
-          buildpack: heroku/nodejs
           appdir: dist
+          docker_heroku_process_type: worker
           # healthcheck: "https://discord-reminder-bot-eu.herokuapp.com/health"
           # rollbackonhealthcheckfailed: true
           # procfile: "worker: node dist/index.js"
