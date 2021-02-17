@@ -1,5 +1,3 @@
-import { MyChannel } from '../reminder/channel';
-
 export class Config {
     private PREFIX: string;
     private NAMEBOT: string;

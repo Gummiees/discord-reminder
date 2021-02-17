@@ -1,15 +1,21 @@
 import { Client, ClientOptions } from 'discord.js';
-import { Command, Help, List, Remind, Remove, SetChannel } from '../commands/commands.barrel';
-import { MyChannel } from '../reminder/channel';
+import { Command, Help, List, Remind, Remove } from '../commands/commands.barrel';
+import { Reminder } from '../commands/reminder';
+import { GuildDB } from '../guild/guildDB';
+import { IReminder } from '../reminder/reminder.interfaces';
+import { ReminderDB } from '../reminder/reminderDB';
 
 export class MyClient extends Client {
+    public reminderDB: ReminderDB;
+    public guildDB: GuildDB;
     private COMMANDS: Command[];
-    private CHANNEL: MyChannel;
 
     constructor(options?: ClientOptions) {
         super(options);
-        this.CHANNEL = new MyChannel();
+        this.reminderDB = new ReminderDB();
+        this.guildDB = new GuildDB();
         this.COMMANDS = this.createCommands();
+        this.listenToReminderEmitter();
     }
 
     public get commands(): Command[] {
@@ -20,8 +26,9 @@ export class MyClient extends Client {
         this.COMMANDS = cmds;
     }
 
-    public get channel(): MyChannel {
-        return this.CHANNEL;
+    public destroy(): Promise<void> {
+        this.reminderDB.removeAllChronos();
+        return super.destroy();
     }
 
     public getCommand(name: string): Command | undefined {
@@ -29,11 +36,19 @@ export class MyClient extends Client {
     }
 
     private createCommands(): Command[] {
-        const remind: Command = new Remind('remind');
-        const remove: Command = new Remove('remove');
-        const list: Command = new List('list');
-        const help: Command = new Help('help');
-        const set: Command = new SetChannel('set');
-        return [remind, remove, list, help, set];
+        const remind: Remind = new Remind('remind');
+        const remove: Remove = new Remove('remove');
+        const list: List = new List('list');
+        const help: Help = new Help('help');
+        return [remind, remove, list, help];
+    }
+
+    private listenToReminderEmitter() {
+        this.reminderDB.reminderEvent.on('reminder', (reminder: IReminder) => this.handleReminderEvent(reminder));
+    }
+
+    private handleReminderEvent(reminder: IReminder) {
+        const reminderCommand: Reminder = new Reminder('reminder');
+        reminderCommand.execute(this, null, null, reminder);
     }
 }

@@ -12,6 +12,5 @@ My first discord bot made with TypeScript! Also using lint properly (I think).
 - Set daily reminders when new day
 - Check if has to send reminder message
 - Send reminder message
-- Specify channel (`.set` + `channel.json`)
 - Browserify
 - Heroku
